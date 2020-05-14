@@ -1,0 +1,14 @@
+services:
+    App\ToDo\UserModule\UI\Controllers\UserController:
+        tags: ['controller.service_arguments']
+        arguments:
+            $bus: '@message_bus'
+
+    App\ToDo\UserModule\Application\SingUp\Services\SingUpHandler:
+        arguments:
+            $resultHandler: '@result_handler'
+            $validator: '@validator'
+        tags:
+            name: messenger.message_handler
+            handles: App\ToDo\UserModule\Application\SingUp\Command\SingUp
+            bus: command.bus
